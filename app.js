@@ -48,9 +48,18 @@ app.post("/", (req, res) => {
 		response.on("data", (data) => {
 			console.log(JSON.parse(data));
 		});
+		if (response.statusCode === 200) {
+			res.sendFile(__dirname + "/success.html");
+		} else {
+			res.sendFile(__dirname + "/failure.html");
+		}
 	});
 	request.write(jsonData);
 	request.end();
+});
+
+app.get("/failure", (req, res) => {
+	res.redirect("/");
 });
 
 const port = 3000;
